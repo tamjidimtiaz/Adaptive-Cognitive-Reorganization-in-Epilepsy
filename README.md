@@ -67,19 +67,18 @@ Other locations can be given with `--data-dir`, `--metadata`, `--dataset-dir` an
 
 ## Analysis
 
-1. **Thresholding.** Each matrix is proportionally thresholded at 30% density.
 2. **Intra-network (Figure 1A).** Node strength, betweenness centrality, clustering coefficient and
    global efficiency of the salience and limbic networks, cut from the whole-brain thresholded
    matrix. Two-sample t-tests, Bonferroni-corrected over the three group pairs.
 3. **Inter-network (Figure 1B).** Mean connectivity between each pair of the seven networks.
-   t-tests, FDR-corrected over the three group pairs.
+   t-tests, Bonferroni-corrected over the three group pairs.
 4. **Subcortical (Figure 1C).** Node strength within the hippocampus and thalamus. Mann-Whitney U
    tests, Bonferroni-corrected.
 5. **Hub disruption index (Figure 2).** Nodal metrics are z-scored across the 256 nodes within each
    subject. K is the slope of (subject − reference) regressed on the z-scored reference profile,
    where the reference is the mean control profile. Each control is scored against the mean of the
    other controls (leave-one-out), so no subject is part of its own reference. Groups are compared
-   with Welch t-tests and FDR correction; effect sizes are Cohen's d.
+   with Welch t-tests and Bonferroni correction; effect sizes are Cohen's d.
 6. **Deviant nodes (Figure 3).** Nodes whose group-mean betweenness difference from controls exceeds
    2 SD of all node differences are tested with 5000 label permutations and FDR correction.
 7. **Cognitive domains (Figure 4).** K_BC and the deviant-node analysis repeated with patients split
