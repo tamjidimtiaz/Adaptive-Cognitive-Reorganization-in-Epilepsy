@@ -41,7 +41,7 @@ def statistics(intra, inter, subc):
           .assign(network=net, metric=metric)
         for net, df in intra.groupby("network", sort=False) for metric in fn.METRICS])
     inter_stats = pd.concat([
-        fn.pairwise_tests(fn.group_values(inter, f"{a}-{b}", GROUPS), PAIRS, "student", "fdr_bh")
+        fn.pairwise_tests(fn.group_values(inter, f"{a}-{b}", GROUPS), PAIRS, "student", "bonferroni")
           .assign(network_a=a, network_b=b)
         for a, b in EDGES])
     subc_stats = pd.concat([
