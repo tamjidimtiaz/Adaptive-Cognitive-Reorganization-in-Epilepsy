@@ -38,7 +38,7 @@ def run(matrices, groups, nodes, dataset_dir, density=fn.DENSITY, n_perm=5000, n
     K = {fn.K_NAMES[m]: fn.hub_disruption_index(profiles, controls, patients, m) for m in fn.METRICS}
     hdi = pd.DataFrame([{"subject": s, "group": g, **{k: K[k][s] for k in K}}
                         for g in MAIN for s in groups[g]])
-    hdi_stats = pd.concat([fn.pairwise_tests(fn.group_values(hdi, k, MAIN), hdi_pairs(MAIN), "welch", "fdr_bh")
+    hdi_stats = pd.concat([fn.pairwise_tests(fn.group_values(hdi, k, MAIN), hdi_pairs(MAIN), "welch", "bonferroni")
                            .assign(index=k) for k in K])
     fn.save_csv(hdi, dataset_dir, "fig2c_hub_disruption_index.csv")
     fn.save_csv(hdi_stats[["index"] + [c for c in hdi_stats if c != "index"]], dataset_dir, "fig2c_hdi_stats.csv")
@@ -67,7 +67,7 @@ def run(matrices, groups, nodes, dataset_dir, density=fn.DENSITY, n_perm=5000, n
         df = pd.DataFrame([{"domain": domain, "subject": s, "group": g, "K_BC": k_bc[s]}
                            for g in labels for s in groups[g]])
         k_rows.append(df)
-        k_stats.append(fn.pairwise_tests(fn.group_values(df, "K_BC", labels), hdi_pairs(labels), "welch", "fdr_bh")
+        k_stats.append(fn.pairwise_tests(fn.group_values(df, "K_BC", labels), hdi_pairs(labels), "welch", "bonferroni")
                        .assign(domain=domain, index="K_BC"))
         dev.append(bc_deviation(profiles, nodes, groups, labels[1:], n_perm).assign(domain=domain))
     k_stats = pd.concat(k_stats)
