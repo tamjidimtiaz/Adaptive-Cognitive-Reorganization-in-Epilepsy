@@ -191,7 +191,7 @@ def reference_profile(profiles, controls, metric, exclude=None):
 
 
 def hdi_slope(profile, reference):
-    return stats.linregress(zscore(reference), profile - reference).slope
+    return stats.linregress(zscore(reference), profile - zscore(reference)).slope
 
 
 def hub_disruption_index(profiles, controls, patients, metric):
